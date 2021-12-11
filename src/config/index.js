@@ -16,5 +16,6 @@ const EnvConfig ={
 export default{
     env,
     mock:true,
+    nameSpace:'manager',
     ...EnvConfig[env]
 };
