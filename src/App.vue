@@ -1,25 +1,6 @@
 <script>
-import { inject, onMounted } from 'vue';
 export default{
-  name:'app',
-  mounted(){
-    this.$storage.setItem('make','love');
-  },
-  setup(){
-    // const request = inject('$request');
-  //   const storage = inject('$storage');
-  //   onMounted(()=>{
-  //      storage.setItem('age',15);
-  //      console.log('AAA');
-  //   });
-  //   // const userInfo = await request.get('/login');
-  // storage.setItem('age',15);
-  //   console.log(storage);
-     
-   
-   
-    // console.log(userInfo);
-  }
+  name:'app'
 };
 
 </script>
@@ -28,6 +9,7 @@ export default{
  <router-view></router-view>
 </template>
 
-<style>
-
+<style lang="scss">
+@import url('./assets/style/index.scss');
+@import url('./assets/style/reset.css');
 </style>
