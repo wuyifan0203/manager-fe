@@ -5,6 +5,7 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import request from './utils/request';
 import storage from './utils/storage';
+import api from './api';
 
 import config from './config';
 
