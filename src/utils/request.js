@@ -24,7 +24,7 @@ service.interceptors.response.use((res) => {
   if(code===200){
     //   ElMessage.success(msg)
       return data;
-  }else if(code === 40001){
+  }else if(code === 500001){
       ElMessage.error(TOKEN_INVALID);
       setTimeout(()=>{
           router.push('/login');
