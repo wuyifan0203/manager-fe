@@ -9,7 +9,7 @@ const routes=[
         meta:{
             title:'首页'
         },
-        component:()=> import('../views/Home.vue'),
+        component:()=> import('../components/Home.vue'),
         redirct:'/welcome',
         children:[
             {
