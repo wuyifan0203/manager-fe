@@ -8,6 +8,7 @@
     "style": "stylelint \"src/**/*.(vue|scss|css)\" --fix"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^0.2.4",
     "axios": "^0.24.0",
     "element-plus": "^1.2.0-beta.5",
     "vite": "^2.6.4",
