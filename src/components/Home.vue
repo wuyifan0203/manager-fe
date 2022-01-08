@@ -8,7 +8,7 @@
       </div>
       <!-- 菜单栏 -->
       <el-menu
-        default-active="2"
+        :default-active="activeMenu"
         class="nav-menu"
         router
         :collapse="isCollaps"
@@ -16,7 +16,6 @@
         text-color="#fff"
       >
       <TreeMenu :userMenu="userMenu.menuList"></TreeMenu>
-       
       </el-menu>
     </div>
     <div :class="['content-right', isCollaps ? 'fold' : 'unfold']">
@@ -77,6 +76,7 @@ export default {
     const userInfo = reactive(store.state.user.userInfo);
     const noticeCount = ref(0);
     const userMenu = reactive({menuList:[]});
+    const activeMenu = ref('');
     // methods
     const init = async() => {
       try {
@@ -103,6 +103,7 @@ export default {
     return {
       handleCommand,
       userInfo,
+      activeMenu,
       showMenu,
       isCollaps,
       noticeCount,
