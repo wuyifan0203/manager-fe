@@ -4,6 +4,7 @@ export const userLogin = ({userName,password})=>{
     return Request({
         url:'/users/login',
         method:'post',
-        data:{userName,password}
+        data:{userName,password},
+        mock:false
     });
 };

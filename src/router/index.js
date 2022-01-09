@@ -7,19 +7,27 @@ const routes=[
         name:'home',
         path:'/',
         meta:{
-            title:'首页'
+            title:'home'
         },
-        component:()=> import('../components/Home.vue'),
+        component:()=> import('@/components/Home.vue'),
         redirct:'/welcome',
         children:[
             {
                 name:'welcome',
                 path:'/welcome',
                 meta:{
-                    title:'欢迎页'
+                    title:'welcome'
                 },
-                component:()=> import('../views/Welcome.vue'),
-            }
+                component:()=> import('@/views/Welcome.vue'),
+            },
+            {
+                name:'user',
+                path:'/system/user',
+                meta:{
+                    title:'User management'
+                },
+                component:()=> import('@/views/User.vue'),
+            },
         ]
     },
     {

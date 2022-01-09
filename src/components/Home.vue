@@ -24,7 +24,10 @@
           <div class="menu-fold" @click="showMenu">
             <el-icon><fold /></el-icon>
           </div>
-          <div class="bread">bread</div>
+          <!-- 面包屑 -->
+          <div class="bread">
+           <BreadCrumb></BreadCrumb>
+          </div>
         </div>
         <div class="user-info">
           <el-badge :is-dot="Boolean(noticeCount)" class="notice" type="danger">
@@ -36,10 +39,10 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="email"
-                  >Email:{{ userInfo.userEmail }}</el-dropdown-item
-                >
-                <el-dropdown-item command="exit">exit</el-dropdown-item>
+                <el-dropdown-item command="email">
+                  Email:{{ userInfo.userEmail }}
+                </el-dropdown-item>
+                <el-dropdown-item command="exit">Exit</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -61,11 +64,12 @@ import router from '../router';
 import api from '../api';
 
 import TreeMenu from './TreeMenu.vue';
+import BreadCrumb from './BreadCrumb.vue';
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Home',
   components:{
-    TreeMenu
+    TreeMenu,
+    BreadCrumb
   },
   setup() {
     onMounted(() => {
@@ -76,7 +80,7 @@ export default {
     const userInfo = reactive(store.state.user.userInfo);
     const noticeCount = ref(0);
     const userMenu = reactive({menuList:[]});
-    const activeMenu = ref('');
+    const activeMenu = ref('/welcome');
     // methods
     const init = async() => {
       try {

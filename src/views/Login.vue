@@ -38,10 +38,8 @@ import $store from '../store/index';
 import $router from '../router/index';
 import Api from '../api';
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
   setup() {
-    // const api = inject('$api');
     const userform = ref('');
     const user = reactive({
       userName: '',
