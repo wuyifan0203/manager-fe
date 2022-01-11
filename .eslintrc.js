@@ -20,6 +20,7 @@ module.exports = {
         'vue/no-multiple-template-root': 0,
         'vue/no-v-for-template-key': 0,
         'quote-props':[2, 'as-needed'],     // 双引号自动变单引号
-        'vue/multi-word-component-names':0
+        'vue/multi-word-component-names':0,
+        'vue/no-v-model-argument':0
     },
 };

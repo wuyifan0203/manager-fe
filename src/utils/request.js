@@ -17,9 +17,9 @@ const service = axios.create({
 service.interceptors.request.use((req) => {
   // TODO
   const headers = req.headers;
-  const token = storage.getItem('userInfo');
+  const {token} = storage.getItem('userInfo');
   if (!headers.Authorization) {
-    headers.Authorization = 'Bearer' +  token;
+    headers.Authorization = 'Bearer ' +  token;
   }
   return req;
 });
