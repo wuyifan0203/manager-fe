@@ -1,10 +1,9 @@
-import { userLogin } from './user';
-import { getNoticeCount } from './leave';
-import { getMenuList } from './menu';
+import user from './user';
+import leave from './leave';
+import menu from './menu';
 
-// console.log(userLogin);
 export default {
-  userLogin,
-  getNoticeCount,
-  getMenuList,
+  ...user,
+  ...leave,
+  ...menu,
 };

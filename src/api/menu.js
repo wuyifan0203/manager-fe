@@ -1,9 +1,13 @@
 import Request from "../utils/request";
 
-export const getMenuList = ()=>{
+const getMenuList = ()=>{
     return Request({
         url:'/menu/list',
         method:'get',
         mock:true
     });
+};
+
+export default {
+    getMenuList
 };

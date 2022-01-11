@@ -49,9 +49,7 @@
         </div>
       </nav>
       <main class="wrapper">
-        <div class="main-page">
           <router-view></router-view>
-        </div>
       </main>
     </div>
   </div>

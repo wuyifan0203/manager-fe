@@ -17,7 +17,7 @@ app.provide('$request',request);
 app.provide('$storage',storage);
 app.use(router);
 app.use(store);
-app.use(ElementPlus);
+app.use(ElementPlus, { size: 'small', zIndex: 3000 });
 app.mount('#app');
 for(let iconName in ElIconModules){
     app.component(iconName,ElIconModules[iconName]);

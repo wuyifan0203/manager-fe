@@ -1,9 +1,13 @@
 import Request from "../utils/request";
 
-export const getNoticeCount = ()=>{
+const getNoticeCount = ()=>{
     return Request({
         url:'/leave/count',
         method:'get',
         mock:true
     });
+};
+
+export default {
+    getNoticeCount
 };
