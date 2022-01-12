@@ -32,19 +32,20 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryUser"
-            >query</el-button
-          >
-          <el-button size="small" @click="resetForm">reset</el-button>
+          <el-button type="primary" @click="queryUser">query</el-button>
+          <el-button @click="resetForm">reset</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="base-table">
       <div class="action">
-        <el-button type="primary" size="small">Query</el-button>
-        <el-button type="danger" size="small">Batch delete</el-button>
+        <el-button type="primary">Query</el-button>
+        <el-button type="danger" @click="BatchDelete">Batch delete</el-button>
       </div>
-      <el-table :data="userList" size="small">
+      <el-table 
+      :data="userList" 
+      size="small"
+      @selection-change="selectChange">
         <el-table-column type="selection" width="55" />
         <el-table-column
           v-for="column in userTableConfig.columnConfig"
@@ -55,15 +56,15 @@
         />
         <el-table-column label="operation" width="150">
           <template #default="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-              >Edit</el-button
-            >
+            <el-button size="mini" @click="handleEdit( scope.row)">
+              Edit
+            </el-button>
             <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >Delete</el-button
-            >
+              @click="handleDelete(scope.row)">
+              Delete
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -71,7 +72,6 @@
         class="pagination"
         small
         background
-        v-model:currentPage="paginationParams.pageNum"
         :page-size="paginationParams.pageSize"
         layout="prev, pager, next"
         :total="paginationParams.total"
@@ -86,6 +86,7 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue';
 
 import userTableConfig from '@/components/tableConfig/userTableConfig';
+import { ElMessage } from 'element-plus';
 import Api from '@/api';
 export default defineComponent({
   name: 'User',
@@ -111,6 +112,7 @@ export default defineComponent({
 
     const userList = ref([]);
     const userFormRef = ref(null);
+    const selectedUser =ref([]);
 
     onMounted(() => {
       init();
@@ -144,6 +146,32 @@ export default defineComponent({
       getUserList(params);
     };
 
+    const deleteUser =async(userIds)=>{
+       const res = await Api.deleteUser({
+        userIds:userIds
+      });
+      if(res.code === 200){
+        ElMessage.success('Delete success !');
+        getUserList();
+      }
+    };
+
+    const selectChange = (selection)=>{
+      selectedUser.value=selection;
+    };
+
+    const handleDelete = (row)=>{
+      deleteUser([row.userId]);
+    };
+
+     const BatchDelete = ()=>{
+       if(selectedUser.value.length === 0){
+         ElMessage.error('Please select users to delete');
+         return;
+       }
+       deleteUser(selectedUser.value.map(e=>e.userId));
+    };
+
     return {
       formParams,
       paginationParams,
@@ -153,7 +181,10 @@ export default defineComponent({
       userFormRef,
       queryUser,
       resetForm,
+      selectChange,
       handleCurrentChange,
+      handleDelete,
+      BatchDelete
     };
   },
 });
