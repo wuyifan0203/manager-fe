@@ -17,7 +17,16 @@ const getUserList = (params) =>{
     });
 };
 
+const deleteUser = (params) =>{
+    return Request({
+        url: '/users/delete',
+        method: 'post',
+        data: params,
+    });
+};
+
 export default {
     userLogin,
-    getUserList
+    getUserList,
+    deleteUser
 };
