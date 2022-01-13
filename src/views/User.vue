@@ -53,6 +53,7 @@
           :prop="column.prop"
           :label="column.label"
           :width="column.width ? column.width : ''"
+          :formatter="column.formatter"
         />
         <el-table-column label="operation" width="150">
           <template #default="scope">
@@ -92,10 +93,11 @@ export default defineComponent({
   name: 'User',
   setup() {
     const optionList = [
-      { key: 'working', value: 0 },
-      { key: 'probation', value: 1 },
-      { key: 'intern', value: 2 },
-      { key: 'departing', value: 3 },
+      { key: 'all', value: 0 },
+      { key: 'working', value: 1 },
+      { key: 'probation', value: 2 },
+      { key: 'intern', value: 3 },
+      { key: 'departing', value: 4 },
     ];
 
     const formParams = reactive({
@@ -150,7 +152,7 @@ export default defineComponent({
        const res = await Api.deleteUser({
         userIds:userIds
       });
-      if(res.code === 200){
+      if(res.nModified > 0){
         ElMessage.success('Delete success !');
         getUserList();
       }

@@ -26,12 +26,26 @@ const config  = {
         {
             key:'userRole',
             label:'role',
-            prop:'role'
+            prop:'role',
+            formatter(row,column,value){
+                return{
+                    0:'admin',
+                    1:'user'
+                }[value];
+            }
         },
         {
             key:'userState',
             label:'state',
-            prop:'state'
+            prop:'state',
+            formatter(row,column,value){
+                return{
+                    1:'working',
+                    2:'probation',
+                    3:'intern',
+                    4:'departing'
+                }[value];
+            }
         },
         {
             key:'createTime',
