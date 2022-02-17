@@ -1,4 +1,4 @@
-
+import utils from '@/utils/common';
 const config  = {
     tableConfig:{
         border:true
@@ -21,7 +21,7 @@ const config  = {
         {
             key:'userEmail',
             label:'Email',
-            prop:'userId'
+            prop:'userEmail'
         },
         {
             key:'userRole',
@@ -50,12 +50,18 @@ const config  = {
         {
             key:'createTime',
             label:'create time',
-            prop:'createTime'
+            prop:'createTime',
+            formatter(row,col,val){
+                return utils.formatDate(new Date(val));
+            }
         },
         {
             key:'lastLoginTime',
             label:'last login time',
-            prop:'lastLoginTime'
+            prop:'lastLoginTime',
+            formatter(row,col,val){
+                return utils.formatDate(new Date(val));
+            }
         },
 
     ]

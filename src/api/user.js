@@ -14,6 +14,7 @@ const getUserList = (params) =>{
         url: '/users/list',
         method: 'get',
         data: params,
+        mock:false
     });
 };
 
@@ -25,8 +26,17 @@ const deleteUser = (params) =>{
     });
 };
 
+const insetUser =  (params) =>{
+    return Request({
+        url: '/users/operate',
+        method: 'post',
+        data: params,
+    });
+};
+
 export default {
     userLogin,
     getUserList,
-    deleteUser
+    deleteUser,
+    insetUser
 };

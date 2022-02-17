@@ -57,12 +57,12 @@
 
 <script>
 import { onMounted, reactive, ref } from 'vue';
-import store from '../store';
-import router from '../router';
-import api from '../api';
+import store from '@/store';
+import router from '@/router';
+import api from '@/api';
 
-import TreeMenu from './TreeMenu.vue';
-import BreadCrumb from './BreadCrumb.vue';
+import TreeMenu from '@/components/TreeMenu.vue';
+import BreadCrumb from '@/components/BreadCrumb.vue';
 export default {
   name: 'Home',
   components:{

@@ -2,7 +2,7 @@
   "name": "manager-fe",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --mode dev",
+    "dev": "vite --mode dev --force",
     "build": "vite build ",
     "serve": "vite preview",
     "style": "stylelint \"src/**/*.(vue|scss|css)\" --fix"
