@@ -9,7 +9,7 @@ const routes=[
         meta:{
             title:'home'
         },
-        component:()=> import('@/components/Home.vue'),
+        component:()=> import('@/layout/Home.vue'),
         redirct:'/welcome',
         children:[
             {

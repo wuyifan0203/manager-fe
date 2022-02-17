@@ -7,14 +7,14 @@ import request from './utils/request';
 import storage from './utils/storage';
 import * as ElIconModules from '@element-plus/icons';
 import store from './store';
+// import dialog from './utils/dialog';
 
 import config from './config';
 
 const app=createApp(App);
-app.config.globalProperties.$request = request;
-app.config.globalProperties.$storage = storage;
 app.provide('$request',request);
 app.provide('$storage',storage);
+// app.provide('$dialog',dialog);
 app.use(router);
 app.use(store);
 app.use(ElementPlus, { size: 'small', zIndex: 3000 });
