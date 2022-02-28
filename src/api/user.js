@@ -23,6 +23,7 @@ const deleteUser = (params) =>{
         url: '/users/delete',
         method: 'post',
         data: params,
+        mock:false
     });
 };
 
@@ -31,6 +32,7 @@ const insetUser =  (params) =>{
         url: '/users/operate',
         method: 'post',
         data: params,
+        mock:false
     });
 };
 

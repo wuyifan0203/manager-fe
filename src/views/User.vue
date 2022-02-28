@@ -129,9 +129,9 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="role" prop="role">
+        <el-form-item label="role" prop="roleList">
           <el-select
-            v-model="dialogForm.role"
+            v-model="dialogForm.roleList"
             placeholder="please select a role"
             multiple
             style="width: 100%"
@@ -171,26 +171,33 @@
 </template>
 
 <script>
-import { defineComponent, nextTick, onMounted, reactive, ref, toRaw } from 'vue';
+import {
+  defineComponent,
+  nextTick,
+  onMounted,
+  reactive,
+  ref,
+  toRaw,
+} from "vue";
 
-import userTableConfig from '@/components/tableConfig/userTableConfig';
-import { ElMessage } from 'element-plus';
-import Api from '@/api';
+import userTableConfig from "@/components/tableConfig/userTableConfig";
+import { ElMessage } from "element-plus";
+import Api from "@/api";
 export default defineComponent({
-  name: 'User',
+  name: "User",
   setup() {
     const optionList = [
-      { key: 'all', value: 0 },
-      { key: 'working', value: 1 },
-      { key: 'probation', value: 2 },
-      { key: 'intern', value: 3 },
-      { key: 'departing', value: 4 },
+      { key: "all", value: 0 },
+      { key: "working", value: 1 },
+      { key: "probation", value: 2 },
+      { key: "intern", value: 3 },
+      { key: "departing", value: 4 },
     ];
 
     const formParams = reactive({
-      userId: '',
-        userName: '',
-      state: '',
+      userId: "",
+      userName: "",
+      state: "",
     });
 
     const paginationParams = reactive({
@@ -202,7 +209,7 @@ export default defineComponent({
     const userList = ref([]);
     const userFormRef = ref(null);
     const selectedUser = ref([]);
-    const action = ref('add');
+    const action = ref("add");
 
     onMounted(() => {
       init();
@@ -239,15 +246,16 @@ export default defineComponent({
     };
 
     const handleInsert = () => {
+      action.value = "add";
       dialogVisible.value = true;
-      action.value = 'add';
     };
 
-    const handleEdit= (row)=>{
-      dialogVisible.value=true;
-      action.value= 'edit';
-      nextTick(()=>{
-        Object.assign(dialogForm,row);
+    const handleEdit = (row) => {
+      dialogVisible.value = true;
+      action.value = "edit";
+      nextTick(() => {
+        console.log(row);
+        Object.assign(dialogForm, row);
       });
     };
 
@@ -256,7 +264,7 @@ export default defineComponent({
         userIds: userIds,
       });
       if (res.nModified > 0) {
-        ElMessage.success('Delete success !');
+        ElMessage.success("Delete success !");
         getUserList();
       }
     };
@@ -271,37 +279,36 @@ export default defineComponent({
 
     const BatchDelete = () => {
       if (selectedUser.value.length === 0) {
-        ElMessage.error('Please select users to delete');
+        ElMessage.error("Please select users to delete");
         return;
       }
       deleteUser(selectedUser.value.map((e) => e.userId));
     };
-  
 
     //dialog
     //是否可见
     const dialogVisible = ref(false);
     //表单规则
-    const userFormRules =reactive({
+    const userFormRules = reactive({
       userName: [
         {
           request: true,
-          message: 'please input user name!',
-          trigger: '  ',
+          message: "please input user name!",
+          trigger: "blur",
         },
       ],
       userEmail: [
         {
           request: true,
-          message: 'please input user Email!',
-          trigger: 'blur',
+          message: "please input user Email!",
+          trigger: "blur",
         },
       ],
       depId: [
         {
           request: true,
-          message: 'please select user department!',
-          trigger: 'blur',
+          message: "please select user department!",
+          trigger: "blur",
         },
       ],
       mobile: [
@@ -309,27 +316,27 @@ export default defineComponent({
           request: true,
           pattern:
             /^[1](([3][0-9])|([4][0,1,4-9])|([5][0-3,5-9])|([6][2,5,6,7])|([7][0-8])|([8][0-9])|([9][0-3,5-9]))[0-9]{8}$/,
-          message: 'please input right mobile!',
-          trigger: 'blur',
+          message: "please input right mobile!",
+          trigger: "blur",
         },
       ],
     });
     //用户状态
     const state = [
-      { key: 'working', value: 1 },
-      { key: 'probation', value: 2 },
-      { key: 'intern', value: 3 },
-      { key: 'departing', value: 4 },
+      { key: "working", value: 1 },
+      { key: "probation", value: 2 },
+      { key: "intern", value: 3 },
+      { key: "departing", value: 4 },
     ];
     //表单内容
     const dialogForm = reactive({
-      userName: '',
-      userEmail: '',
-      mobile: '',
-      job: '',
+      userName: "123",
+      userEmail: "12@qq",
+      mobile: "13995268299",
+      job: "321",
       state: null,
-      role: '',
-      deptId: '',
+      role: "",
+      deptId: "",
     });
 
     const roleList = ref([]);
@@ -344,23 +351,21 @@ export default defineComponent({
       roleList.value = await Api.getRoleList();
     };
 
-    const handleCancel = () =>{
-      dialogVisible.value=false;
+    const handleCancel = () => {
+      dialogVisible.value = false;
       dialogRef.value.resetFields();
     };
-    const handleSubmit = () =>{
-      dialogRef.value.validate(async(valid)=>{
-        if(valid){
+    const handleSubmit = () => {
+      dialogRef.value.validate(async (valid) => {
+        if (valid) {
           let params = toRaw(dialogForm);
-          params.userEmail += '.com';
+          params.userEmail += ".com";
           params.action = action.value;
-          let res = Api.insetUser(params);
-          if(res){
-            dialogVisible.value = false;
-            ElMessage.success(`user ${action.value} success!`);
-            getUserList();
-            dialogRef.value.resetFields();
-          }
+          await Api.insetUser(params);
+          dialogVisible.value = false;
+          ElMessage.success(`user ${action.value} success!`);
+          getUserList();
+          dialogRef.value.resetFields();
         }
       });
     };
@@ -389,7 +394,7 @@ export default defineComponent({
       dialogForm,
       state,
       handleCancel,
-      handleSubmit
+      handleSubmit,
     };
   },
 });
