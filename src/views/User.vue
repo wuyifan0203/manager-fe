@@ -42,7 +42,7 @@
         <el-button type="primary" @click="handleInsert">Insert</el-button>
         <el-button type="danger" @click="BatchDelete">Batch delete</el-button>
       </div>
-      <el-table :data="userList" size="small" @selection-change="selectChange">
+      <el-table :data="userList" size="small" @selection-change="selectChange" height="550">
         <el-table-column type="selection" width="55" />
         <el-table-column
           v-for="column in userTableConfig.columnConfig"
@@ -330,10 +330,10 @@ export default defineComponent({
     ];
     //表单内容
     const dialogForm = reactive({
-      userName: "123",
-      userEmail: "12@qq",
-      mobile: "13995268299",
-      job: "321",
+      userName: "",
+      userEmail: "",
+      mobile: "",
+      job: "",
       state: null,
       role: "",
       deptId: "",
@@ -409,7 +409,7 @@ export default defineComponent({
     border-bottom: 1px solid #ece8e8;
   }
   .pagination {
-    text-align: right;
+    text-align: center;
     padding: 10px;
   }
 }

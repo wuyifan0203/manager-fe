@@ -15,7 +15,7 @@
         background-color="#001529"
         text-color="#fff"
       >
-      <TreeMenu :userMenu="userMenu.menuList"></TreeMenu>
+      <TreeMenu :userMenu="menuList"></TreeMenu>
       </el-menu>
     </div>
     <div :class="['content-right', isCollaps ? 'fold' : 'unfold']">
@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref } from 'vue';
-import store from '@/store';
+import { computed, onMounted, reactive, ref } from 'vue';
+import {useStore} from 'vuex';
 import router from '@/router';
 import api from '@/api';
 
@@ -72,20 +72,21 @@ export default {
   setup() {
     onMounted(() => {
       init();
+     
     });
     //data
+    const store = useStore();
     const isCollaps = ref(false);
     const userInfo = reactive(store.state.user.userInfo);
     const noticeCount = ref(0);
-    const userMenu = reactive({menuList:[]});
     const activeMenu = ref('/welcome');
+    const menuList = computed(()=>store.getters.getMenuList);
     // methods
     const init = async() => {
       try {
+        store.dispatch('getMenuList');
         const count = await api.getNoticeCount();
-        const list = await api.getMenuList();
         noticeCount.value=count;
-        userMenu.menuList=list;
       } catch (error) {
         console.error(error);
       }
@@ -100,7 +101,7 @@ export default {
       store.commit('setUserInfo', '');
       userInfo.userName = '';
       userInfo.userEmail = '';
-      router.replace('./login');
+      router.push('/login');
     };
     return {
       handleCommand,
@@ -109,7 +110,7 @@ export default {
       showMenu,
       isCollaps,
       noticeCount,
-      userMenu
+      menuList
     };
   },
 };

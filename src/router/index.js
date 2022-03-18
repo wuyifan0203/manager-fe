@@ -22,11 +22,19 @@ const routes=[
             },
             {
                 name:'user',
-                path:'/system/user',
+                path:'/system//user',
                 meta:{
                     title:'User management'
                 },
                 component:()=> import('@/views/User.vue'),
+            },
+            {
+                name:'menu',
+                path:'/system/menu',
+                meta:{
+                    title:'Menu management'
+                },
+                component:()=> import('@/views/Menu.vue'),
             },
         ]
     },
